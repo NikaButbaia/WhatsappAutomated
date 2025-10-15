@@ -1,6 +1,6 @@
-import org.nika.pages.WhatsAppPage;
-import org.nika.pages.TrelloPage;
-import org.nika.utils.Utils;
+import pages.WhatsAppPage;
+import pages.TrelloPage;
+import utils.Utils;
 
 
 import org.openqa.selenium.*;
@@ -61,7 +61,7 @@ public class NK {
     public void test() throws InterruptedException, IOException {
         driver.get("https://web.whatsapp.com");
         HashMap<String, String> messagesTrello = new HashMap<>();
-        for (Map.Entry<String, String> entry: Map.of("Nika Butbaua","iagova", "Sofo", "lalala", "Giorgi", "lalala").entrySet()){
+        for (Map.Entry<String, String> entry: Map.of("patara luka","lalala","Nodari","surati").entrySet()){
             String chatName = entry.getKey();
             String filterName = entry.getValue();
             whatsAppPage.waitForWPLoad()
@@ -76,9 +76,8 @@ public class NK {
                 messagesTrello.put(entry.getKey(), lastMessage.keySet().stream().findFirst().orElse(null));
             }
         }
-
         WebDriver newTab = driver.switchTo().newWindow(WindowType.TAB);
-        newTab.get("https://trello.com/b/SotEvwaB/test");
+        newTab.get("https://trello.com/b/KXmOslHa/nodaridagchrimalegamis5saatia");
         Thread.sleep(2000);
         trelloPage.loginIfNot();
         trelloPage.waitForBoardToLoad();

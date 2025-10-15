@@ -1,6 +1,6 @@
-package org.nika.pages;
+package pages;
 
-import org.nika.utils.Utils;
+import utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 

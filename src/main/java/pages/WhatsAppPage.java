@@ -1,13 +1,11 @@
-package org.nika.pages;
+package pages;
 
-import com.google.common.base.Objects;
-import org.nika.utils.ChatJsonStore;
+import utils.ChatJsonStore;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
