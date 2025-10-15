@@ -16,14 +16,11 @@ public class TrelloPage extends BasePage {
     @FindBy(xpath = "//textarea[@placeholder=\"Enter list name…\"]")
     WebElement newListNameInput;
 
-    @FindBy(xpath = "//div[@data-testid=\"board-name-container\"]")
-    WebElement boardHeader;
-
     @FindBy(xpath = "//ol[@id=\"board\"]")
     WebElement board;
 
     public TrelloPage waitForBoardToLoad(){
-        utils.waitForElementVisible(boardHeader, 15);
+        utils.waitForElementToBeInDom("//div[@data-testid=\"board-name-container\"]", 15);
         return this;
     }
 

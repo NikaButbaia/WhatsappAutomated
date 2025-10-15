@@ -1,3 +1,5 @@
+import listeners.ScreenshotOnFailureListener;
+import org.testng.annotations.*;
 import pages.WhatsAppPage;
 import pages.TrelloPage;
 import utils.Utils;
@@ -6,10 +8,6 @@ import utils.Utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+@Listeners(ScreenshotOnFailureListener.class)
 public class NK {
     private WebDriver driver;
     private Utils utils;
@@ -26,11 +25,6 @@ public class NK {
     @BeforeSuite
     public void setUp() throws IOException {
         ChromeOptions options = new ChromeOptions();
-//        Path projectRoot = Paths.get(System.getProperty("user.dir"));
-//        Path base = projectRoot.resolve("User Data");
-//        Path dirA = base.resolve("A_" + System.currentTimeMillis());
-//        Files.createDirectories(dirA);
-//        options.addArguments("--user-data-dir=" + dirA.toAbsolutePath());
         Path projectRoot = Paths.get(System.getProperty("user.dir"));
         Path base = projectRoot.resolve("User Data");
         Files.createDirectories(base);
@@ -40,6 +34,10 @@ public class NK {
         String profileName = "Default";
         options.addArguments("--profile-directory=" + profileName);
         options.addArguments("--no-first-run");
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--hide-scrollbars");
+        options.addArguments("--mute-audio");
         options.addArguments("--no-default-browser-check");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-blink-features=AutomationControlled");
@@ -61,7 +59,7 @@ public class NK {
     public void test() throws InterruptedException, IOException {
         driver.get("https://web.whatsapp.com");
         HashMap<String, String> messagesTrello = new HashMap<>();
-        for (Map.Entry<String, String> entry: Map.of("patara luka","lalala","Nodari","surati").entrySet()){
+        for (Map.Entry<String, String> entry: Map.of("Giorgi","lalala","Sofo","lalala").entrySet()){
             String chatName = entry.getKey();
             String filterName = entry.getValue();
             whatsAppPage.waitForWPLoad()
@@ -76,8 +74,11 @@ public class NK {
                 messagesTrello.put(entry.getKey(), lastMessage.keySet().stream().findFirst().orElse(null));
             }
         }
+        if (messagesTrello.isEmpty()){
+            return;
+        }
         WebDriver newTab = driver.switchTo().newWindow(WindowType.TAB);
-        newTab.get("https://trello.com/b/KXmOslHa/nodaridagchrimalegamis5saatia");
+        newTab.get(""); //trello board url
         Thread.sleep(2000);
         trelloPage.loginIfNot();
         trelloPage.waitForBoardToLoad();
