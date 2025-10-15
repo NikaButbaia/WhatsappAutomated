@@ -51,6 +51,18 @@ public class Utils {
         webDriverWait.until(ExpectedConditions.invisibilityOf(element));
     }
 
+    public void waitForElementClickable(WebElement element, int timeoutSeconds){
+        System.out.println("Waiting for element clickable "+element);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void waitForElementClickable(String xpath, int timeoutSeconds){
+        System.out.println("Waiting for element clickable " + xpath);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+    }
+
     public void javascriptClick(WebElement element) {
         js.executeScript("arguments[0].click();", element);
     }
